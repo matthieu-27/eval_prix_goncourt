@@ -8,12 +8,7 @@ class Editor {
 class Author {
     +id: int
     +name: String
-    biography: Text
-}
-
-class Biography {
-    +id: int
-    +text: Text
+    +biography: Text
 }
 
 class Book {
@@ -45,7 +40,7 @@ class Personality {
 }
 
 class Winner {
-    +turn: number
+    +vote_round: number
     +book: Book
     +number_of_votes: int
 }
@@ -54,11 +49,10 @@ class Winner {
 '*************Relation des classes*************
 
 Selection "1" *-- "many" Book : contains
-Author <|-- Biography
 Book o-- Author : aggregation
 Book o-- Editor : aggregation
 Jury "1" *-- "many" Personality : contains
-Selection *-- Jury
+Selection *-- "1" Jury
 Personality *-- Winner: vote for
 
 @enduml
