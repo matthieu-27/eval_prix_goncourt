@@ -84,4 +84,3 @@ CREATE TABLE Personality_Selection(
    FOREIGN KEY(selection_id) REFERENCES Selection(id),
    FOREIGN KEY(personality_id) REFERENCES Personality(id)
 );
-goncourt_award
