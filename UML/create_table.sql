@@ -1,5 +1,5 @@
 CREATE TABLE Selection(
-   id INT,
+   id INT AUTO_INCREMENT,
    selection_number INT,
    selection_date DATE NOT NULL,
    number_of_books VARCHAR(50) ,
@@ -12,7 +12,7 @@ CREATE TABLE Jury(
 );
 
 CREATE TABLE Personality(
-   id INT,
+   id INT AUTO_INCREMENT,
    name VARCHAR(50)  NOT NULL,
    is_president BOOLEAN NOT NULL,
    goncourt_year INT NOT NULL,
@@ -21,14 +21,14 @@ CREATE TABLE Personality(
 );
 
 CREATE TABLE Editor(
-   id INT,
+   id INT AUTO_INCREMENT,
    editor_name VARCHAR(50)  NOT NULL,
    editor_price DECIMAL(19,4) NOT NULL,
    PRIMARY KEY(id)
 );
 
 CREATE TABLE Author(
-   id INT,
+   id INT AUTO_INCREMENT,
    author_name VARCHAR(50)  NOT NULL,
    author_biography TEXT,
    PRIMARY KEY(id)
