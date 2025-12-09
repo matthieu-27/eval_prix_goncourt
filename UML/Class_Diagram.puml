@@ -1,15 +1,5 @@
 @startuml
-
-class Editor {
-    +editor_name: String
-    +editor_price: Float
-}
-
-class Author {
-    +id: int
-    +name: String
-    +biography: Text
-}
+left to right direction
 
 class Book {
     +isbn: String
@@ -22,12 +12,23 @@ class Book {
     +editor: Editor
 }
 
+class Editor {
+    +editor_name: String
+    +editor_price: Float
+}
+
+class Author {
+    +id: int
+    +name: String
+    +biography: Text
+}
+
+
 class Selection {
     +id: int
     +number: int
     +books: Book[]
 }
-
 
 class Jury {
     +year: int
@@ -39,7 +40,7 @@ class Personality {
     +is_president: Boolean
 }
 
-class Winner {
+class Awardee {
     +vote_round: number
     +book: Book
     +number_of_votes: int
@@ -48,11 +49,12 @@ class Winner {
 
 '*************Relation des classes*************
 
-Selection "1" *-- "many" Book : contains
-Book o-- Author : aggregation
-Book o-- Editor : aggregation
-Jury "1" *-- "many" Personality : contains
-Selection *-- "1" Jury
-Personality *-- Winner: vote for
+
+Selection "1" *-up-- "many" Book : contains
+Book *-right- Author : has one
+Book *-left-  Editor : has one
+Jury *-left-- Selection
+Jury "1" *-right- "many" Personality : contains
+Selection *-- Awardee: choose one
 
 @enduml

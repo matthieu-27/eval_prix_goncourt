@@ -8,7 +8,8 @@ rectangle goncourt {
     user -- (Afficher livre de chaque sélection)
     president -- (Indiquer livre faisant partie de la 2ème et 3ème sélection)
     president -- (Indiquer le nombre de votes pour chaque livre présent au dernier tour du scrutin)
-    member -- (Voter pour les 2eme et 3eme selection)
-    (Voter pour les 2eme et 3eme selection) .> (Identification) : include
+    member -- (Voter pour les 2ème et 3ème sélection)
+    (Voter pour les 2ème et 3ème sélection) .> (Identification) : include
+    user -- (Afficher le lauréat)
 }
 @enduml
