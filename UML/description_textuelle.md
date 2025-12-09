@@ -53,16 +53,26 @@
 | __Postconditions__            | Aucune.                                                                                                                                                                   |
 
 
-### Cas d'utilisation 4 :
+[//]: # (### Cas d'utilisation 4 :)
 
----
+[//]: # ()
+[//]: # (---)
 
-| Elément                       | Description                                                                                                                                                                              |
-|-------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| __Nom des cas d’utilisation__ | Cas 4 : Voter pour les 2ème et 3ème sélections                                                                                                                                           |
-| __But / Objectif__            | Un membre du jury s’identifie et vote pour un livre dans les 2ème ou 3ème sélections.                                                                                                    |
-| __Acteur principal__          | Member                                                                                                                                                                                   |
-| __Préconditions__             | - Le membre doit être authentifié. <br/> - La sélection concernée doit être ouverte aux votes.                                                                                           |
-| __Scénario principal__        | 1. Le membre s’identifie. <br/> 2. Le système affiche les livres de la sélection concernée. <br/> Le membre choisit un livre et valide son vote. <br/> 4. Le système enregistre le vote. |
-| __Scénario alternatif__       | - Si le membre a déjà voté, le système l’en informe et refuse le vote. <br/> - Si la sélection n’est pas ouverte aux votes, le système affiche un message d’erreur.                      |
-| __Postconditions__            | Aucune.                                                                                                                                                                                  |
+[//]: # ()
+[//]: # (| Elément                       | Description                                                                                                                                                                              |)
+
+[//]: # (|-------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|)
+
+[//]: # (| __Nom des cas d’utilisation__ | Cas 4 : Voter pour les 2ème et 3ème sélections                                                                                                                                           |)
+
+[//]: # (| __But / Objectif__            | Un membre du jury s’identifie et vote pour un livre dans les 2ème ou 3ème sélections.                                                                                                    |)
+
+[//]: # (| __Acteur principal__          | Member                                                                                                                                                                                   |)
+
+[//]: # (| __Préconditions__             | - Le membre doit être authentifié. <br/> - La sélection concernée doit être ouverte aux votes.                                                                                           |)
+
+[//]: # (| __Scénario principal__        | 1. Le membre s’identifie. <br/> 2. Le système affiche les livres de la sélection concernée. <br/> Le membre choisit un livre et valide son vote. <br/> 4. Le système enregistre le vote. |)
+
+[//]: # (| __Scénario alternatif__       | - Si le membre a déjà voté, le système l’en informe et refuse le vote. <br/> - Si la sélection n’est pas ouverte aux votes, le système affiche un message d’erreur.                      |)
+
+[//]: # (| __Postconditions__            | Aucune.                                                                                                                                                                                  |)

@@ -1,6 +1,4 @@
 @startuml
-left to right direction
-
 class Book {
     +isbn: String
     +title: String
@@ -8,53 +6,49 @@ class Book {
     +main_character: String
     +release_date: Date
     +pages_number: int
-    +author: Author
+    +author_name: String
+    +author_biography: String
     +editor: Editor
+    displayBookDetails(isbn): void
 }
 
 class Editor {
     +editor_name: String
-    +editor_price: Float
 }
-
-class Author {
-    +id: int
-    +name: String
-    +biography: Text
-}
-
 
 class Selection {
     +id: int
-    +number: int
-    +books: Book[]
-}
-
-class Jury {
-    +year: int
-    +personalities: Personality[]
+    +selection_number: int
+    +selection_date: Date
+    addBookToSelection(isbn): void
+    displaySelection(id): Book[]
+    displaySelections(): Selection[]
 }
 
 class Personality {
+    +id: int
     +name: String
     +is_president: Boolean
 }
 
-class Awardee {
-    +vote_round: number
-    +book: Book
+class Selection_Books {
     +number_of_votes: int
+    setNumberOfVotes(isbn, number): void
 }
 
+class Editor_Books {
+    +editor_price: Float
+}
 
 '*************Relation des classes*************
 
 
-Selection "1" *-up-- "many" Book : contains
-Book *-right- Author : has one
-Book *-left-  Editor : has one
-Jury *-left-- Selection
-Jury "1" *-right- "many" Personality : contains
-Selection *-- Awardee: choose one
+Selection "*" -up- "1.." Book : Selection_Books
+(Selection, Book) .. Selection_Books
+
+Book "1..*" -left- "1..*" Editor : Editor_Books
+(Editor, Book) .. Editor_Books
+Personality "1.." -right- "1.." Selection : Jury
+
 
 @enduml
