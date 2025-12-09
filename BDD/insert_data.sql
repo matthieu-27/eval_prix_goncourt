@@ -37,7 +37,7 @@ insert into book (isbn, title, summary, main_characters, release_date, page_numb
 insert into book (isbn, title, summary, main_characters, release_date, page_number, author_name, author_biography) values (9782221267660, 'Le crépuscule des hommes', "Nuremberg, 1945 : un procès fait l'Histoire, eux la vivent. Un roman vrai, qui saisit les sursauts de l'Histoire en marche.\nChacun connaît les images du procès de Nuremberg, où Göring et vingt autres nazis sont jugés à partir de novembre 1945. Mais que se passe-t-il hors de la salle d'audience ?\nIls sont là : Joseph Kessel, Elsa Triolet, Martha Gellhorn ou encore John Dos Passos, venus assister à ces dix mois où doit oeuvrer la justice. Des dortoirs de l'étrange château Faber-Castell, qui loge la presse internationale, aux box des accusés, tous partagent la frénésie des reportages, les frictions entre alliés occidentaux et soviétiques, l'effroi que suscite le récit inédit des déportés.\nAvec autant de précision historique que de tension romanesque, Alfred de Montesquiou ressuscite des hommes et des femmes de l'ombre, témoins du procès le plus retentissant du XXe siècle.", "Un ouvrage passionnant et éclairant sur un événement exceptionnel dont on va bientôt commémorer les 80 ans.", '2021-12-01', 371, "Alfred de MONTESQUIOU", NULL);
 insert into book (isbn, title, summary, main_characters, release_date, page_number, author_name, author_biography) values (9782073105455, 'Perpétuité', "Guillaume Poix nous plonge dans l'univers carcéral avec une intensité rare. À travers le récit de son incarcération pour un crime qu'il n'a pas commis, il explore les méandres de la justice, la solitude et la résilience humaine.\nLe roman suit le parcours de l'auteur depuis son arrestation jusqu'à son combat pour prouver son innocence. En décrivant avec précision la vie quotidienne en prison, les relations entre détenus et gardiens, ainsi que les défis psychologiques auxquels il est confronté, Poix offre une perspective unique sur un monde souvent méconnu.\nAvec une écriture poignante et introspective, Guillaume Poix nous invite à réfléchir sur la nature de la culpabilité et de la rédemption dans une société où la justice peut parfois être aveugle.", "Un témoignage poignant sur la vie en prison et la quête de justice d''un homme accusé à tort", '2021-12-01', 256, "Guillaume POIX", NULL);
 insert into book (isbn, title, summary, main_characters, release_date, page_number, author_name, author_biography) values (9782234097155, 'Tressaillir', "Maria Pourchet nous offre un roman intime et bouleversant qui explore les thèmes de la maternité, de l'identité et de la résilience. À travers le personnage de Claire, une femme confrontée à des défis personnels et familiaux, l'auteur dépeint avec sensibilité les complexités des relations humaines et les luttes intérieures.\nLe récit suit Claire alors qu'elle navigue entre ses responsabilités en tant que mère, ses aspirations personnelles et les attentes de la société. Maria Pourchet aborde avec finesse les émotions contradictoires qui accompagnent la maternité, tout en explorant les questions d'autonomie et de liberté individuelle.\nAvec une prose élégante et une narration captivante, Tressaillir est un roman qui résonne profondément, offrant une réflexion sur la force intérieure nécessaire pour affronter les défis de la vie.", "Un roman intime qui explore les complexités de la maternité et de l''identité à travers le parcours d''une femme en quête de sens", '2021-12-01', 312, 'Maria POURCHET', NULL);
-insert into book (isbn, title, summary, main_characters, release_date, page_number, author_name, author_biography) values (9782823623376, 'Un frère', "David Thomas nous plonge dans une histoire familiale poignante où les liens du sang sont mis à l'épreuve par des secrets enfouis et des non-dits. À travers le personnage de Julien, un homme confronté à la disparition mystérieuse de son frère aîné, l'auteur explore les thèmes de la fraternité, de la culpabilité et de la rédemption.\nLe roman suit Julien dans sa quête de vérité, à travers des flashbacks et des rencontres qui remettent en question ses certitudes. Avec un style narratif puissant et des descriptions évocatrices, David Thomas capture l'essence des relations familiales et les émotions complexes qui en découlent.\nUn frère est un récit captivant qui invite à réfléchir sur la nature des liens familiaux et la manière dont ils façonnent notre identité.", "Un roman bouleversant sur les liens fraternels et la quête de vérité au sein d''une famille marquée par un secret", '2021-12-01', 208, 15, 'David THOMAS', NULL);
+insert into book (isbn, title, summary, main_characters, release_date, page_number, author_name, author_biography) values (9782823623376, 'Un frère', "David Thomas nous plonge dans une histoire familiale poignante où les liens du sang sont mis à l'épreuve par des secrets enfouis et des non-dits. À travers le personnage de Julien, un homme confronté à la disparition mystérieuse de son frère aîné, l'auteur explore les thèmes de la fraternité, de la culpabilité et de la rédemption.\nLe roman suit Julien dans sa quête de vérité, à travers des flashbacks et des rencontres qui remettent en question ses certitudes. Avec un style narratif puissant et des descriptions évocatrices, David Thomas capture l'essence des relations familiales et les émotions complexes qui en découlent.\nUn frère est un récit captivant qui invite à réfléchir sur la nature des liens familiaux et la manière dont ils façonnent notre identité.", "Un roman bouleversant sur les liens fraternels et la quête de vérité au sein d''une famille marquée par un secret", '2021-12-01', 208, 'David THOMAS', NULL);
 
 insert into editor_books (book_isbn, editor_id, editor_price) values (9931257824728, 6, 20.00);
 insert into editor_books (book_isbn, editor_id, editor_price) values (9782818061985, 7, 22.50);
@@ -53,4 +53,33 @@ insert into editor_books (book_isbn, editor_id, editor_price) values (9782707356
 insert into editor_books (book_isbn, editor_id, editor_price) values (9782221267660, 1, 22.00);
 insert into editor_books (book_isbn, editor_id, editor_price) values (9782073105455, 12, 18.50);
 insert into editor_books (book_isbn, editor_id, editor_price) values (9782234097155, 3, 21.00);
-insert into editor_books (book_isbn, editor_id, editor_price) values (9782823623376, 8, 16.00); 
+insert into editor_books (book_isbn, editor_id, editor_price) values (9782823623376, 8, 16.00);
+
+insert into selection (selection_number, selection_date) values (1, '2025-09-01')
+
+insert into selection_books (book_isbn, selection_id) values (9931257824728, 1);
+insert into selection_books (book_isbn, selection_id) values (9782818061985, 1);
+insert into selection_books (book_isbn, selection_id) values (9782260057307, 1);
+insert into selection_books (book_isbn, selection_id) values (9782710015871, 1);
+insert into selection_books (book_isbn, selection_id) values (9782226498687, 1);
+insert into selection_books (book_isbn, selection_id) values (9782073101228, 1);
+insert into selection_books (book_isbn, selection_id) values (9782848055701, 1);
+insert into selection_books (book_isbn, selection_id) values (9782021603439, 1);
+insert into selection_books (book_isbn, selection_id) values (9782378562588, 1);
+insert into selection_books (book_isbn, selection_id) values (9782234097278, 1);
+insert into selection_books (book_isbn, selection_id) values (9782707356741, 1);
+insert into selection_books (book_isbn, selection_id) values (9782221267660, 1);
+insert into selection_books (book_isbn, selection_id) values (9782073105455, 1);
+insert into selection_books (book_isbn, selection_id) values (9782234097155, 1);
+insert into selection_books (book_isbn, selection_id) values (9782823623376, 1);
+
+insert into jury (selection_id, personality_id) values (1, 1);
+insert into jury (selection_id, personality_id) values (1, 2);
+insert into jury (selection_id, personality_id) values (1, 3);
+insert into jury (selection_id, personality_id) values (1, 4);
+insert into jury (selection_id, personality_id) values (1, 5);
+insert into jury (selection_id, personality_id) values (1, 6);
+insert into jury (selection_id, personality_id) values (1, 7);
+insert into jury (selection_id, personality_id) values (1, 8);
+insert into jury (selection_id, personality_id) values (1, 9);
+insert into jury (selection_id, personality_id) values (1, 10);

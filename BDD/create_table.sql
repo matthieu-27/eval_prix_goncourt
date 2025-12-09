@@ -33,7 +33,7 @@ CREATE TABLE Editor(
 CREATE TABLE Selection_Books(
    book_isbn BIGINT,
    selection_id INT,
-   number_of_votes INT,
+   number_of_votes INT NOT NULL DEFAULT 0,
    PRIMARY KEY(book_isbn, selection_id),
    FOREIGN KEY(book_isbn) REFERENCES Book(isbn),
    FOREIGN KEY(selection_id) REFERENCES Selection(id)
