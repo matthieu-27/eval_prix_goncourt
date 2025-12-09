@@ -8,7 +8,7 @@ pour une entité de type T.
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
 from typing import ClassVar, Optional, Any
-import pymysql.cursors
+import pymysql.cursors  # type: ignore
 
 
 @dataclass
@@ -21,14 +21,6 @@ class Dao[T](ABC):
                         database='goncourt_award',
                         cursorclass=pymysql.cursors.DictCursor)
 
-    @abstractmethod
-    def create(self, obj: T) -> int:
-        """Crée l'entité en BD correspondant à l'objet obj
-
-        :param obj: à créer sous forme d'entité en BD
-        :return: l'id de l'entité insérée en BD (0 si la création a échoué).
-        """
-        ...
 
     @abstractmethod
     def read(self, id_entity: int) -> Optional[T]:
@@ -36,17 +28,3 @@ class Dao[T](ABC):
            (ou None s'il n'a pu être trouvé)"""
         ...
 
-    @abstractmethod
-    def update(self, id_entity: int, **fields: Any) -> bool:
-        """Met à jour en BD l'entité correspondant à id_entity."""
-        ...
-
-    @abstractmethod
-    def delete(self, id_entity: int) -> bool:
-        """Supprime en BD l'entité correspondant à id_entity"""
-        ...
-
-    @abstractmethod
-    def read_all(self) -> Optional[list[T]]:
-        """Retourne toutes les entrées de la table"""
-        ...
