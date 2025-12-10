@@ -16,3 +16,8 @@ if __name__ == "__main__":
     # books = goncourt.get_all_books()
     # for book in books:
     #     print(book.__str__() + "\n")
+
+    # get jury by selection id
+    jury = goncourt.get_selection_jury(1)
+    for j in jury:
+        print(j.__str__() + "\n")

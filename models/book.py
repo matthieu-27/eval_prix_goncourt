@@ -4,7 +4,6 @@
 Classe Book
 """
 
-# pour simplifier les annotations de types des classes non importées à l'exécution
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -13,7 +12,15 @@ from datetime import date
 
 @dataclass
 class Book:
-    """ Class representing a novel writen in French """
+    """Livre faisant partie du prix goncourt :
+    - isbn                 : clé primaire de l'entité persistante
+    - title                : titre du livre
+    - summary              : sommaire
+    - main_characters      : personnages principaux
+    - page_number          : nombre de pages
+    - author_name          : nom de l'auteur du livre
+    - author_biography     : biographie optionnelle de l'auteur
+    """
     isbn: int
     title: str
     summary: str
