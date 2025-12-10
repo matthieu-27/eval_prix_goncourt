@@ -80,23 +80,31 @@ class SelectionDao(Dao[Selection]):
         ...
 
     @staticmethod
-    def get_selection_jury(selection_id: int) -> Optional[list[Selection]]:
-        jury: Optional[list[Selection]] = []
+    def update_selection(selection_id: int, isbn_list: list[int]) -> bool:
+        """
+        Met à jour une sélection (2ème ou 3ème tour).
 
-        with Dao.connection.cursor() as cursor:
-            sql = """SELECT * FROM personality p \
-                     INNER JOIN jury j \
-                     ON p.id = j.personality_id \
-                     WHERE j.selection_id=%s"""
-            cursor.execute(sql, (selection_id,))
-            records = cursor.fetchall()  # commit
+        Args:
+            selection_id: 2 ou 3.
+            isbn_list: Liste des ISBN des livres à ajouter.
 
-        if records is not None:
-            for record in records:
-                personality = Selection(record['id'],
-                                          record['name'],
-                                          record['is_president'])
-                jury.append(personality)
-        else:
-            jury = None
-        return jury
+        Returns:
+            bool: True si succès, False sinon.
+        """
+        try:
+            with Dao.connection.cursor() as cursor:
+                sql = """DELETE FROM selection_books sb 
+                         WHERE selection.id = %s"""
+                cursor.execute(sql, (selection_id,))
+
+            # 2. Ajouter les nouveaux livres
+            for isbn in isbn_list:
+                query = "INSERT INTO selection (selection_id, isbn) VALUES (%s, %s);"
+                cursor.execute(query,(selection_id, isbn_list))
+
+            Dao.connection.commit()
+            return True
+        except Exception as e:
+            Dao.connection.rollback()
+            print(f"Erreur lors de la mise à jour de la sélection: {str(e)}")
+            return False

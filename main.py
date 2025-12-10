@@ -31,3 +31,8 @@ if __name__ == "__main__":
     # # selection test
     # selection = goncourt.get_selection(1)
     # print(selection)
+
+    print("""\
+    1: Menu Utilisateur
+    2: Menu Présidentiel
+    """)

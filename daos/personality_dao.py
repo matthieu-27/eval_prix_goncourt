@@ -44,3 +44,25 @@ class PersonalityDao(Dao[Personality]):
 
     def delete(self, obj: Personality) -> bool:
         ...
+
+    @staticmethod
+    def get_selection_jury(selection_id: int) -> Optional[list[Personality]]:
+        jury: Optional[list[Personality]] = []
+
+        with Dao.connection.cursor() as cursor:
+            sql = """SELECT * FROM personality p \
+                     INNER JOIN jury j \
+                     ON p.id = j.personality_id \
+                     WHERE j.selection_id=%s"""
+            cursor.execute(sql, (selection_id,))
+            records = cursor.fetchall()  # commit
+
+        if records is not None:
+            for record in records:
+                personality = Personality(record['id'],
+                                          record['name'],
+                                          record['is_president'])
+                jury.append(personality)
+        else:
+            jury = None
+        return jury
