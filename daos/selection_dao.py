@@ -82,29 +82,41 @@ class SelectionDao(Dao[Selection]):
     @staticmethod
     def update_selection(selection_id: int, isbn_list: list[int]) -> bool:
         """
-        Met à jour une sélection (2ème ou 3ème tour).
-
-        Args:
-            selection_id: 2 ou 3.
-            isbn_list: Liste des ISBN des livres à ajouter.
-
-        Returns:
-            bool: True si succès, False sinon.
+        Met à jour une sélection
         """
         try:
             with Dao.connection.cursor() as cursor:
-                sql = """DELETE FROM selection_books sb 
-                         WHERE selection.id = %s"""
-                cursor.execute(sql, (selection_id,))
+                # 1. Vérifier les ISBN
+                for isbn in isbn_list:
+                    cursor.execute("SELECT isbn FROM book WHERE isbn = %s;", (isbn,))
+                    if not cursor.fetchone():
+                        raise ValueError(f"Le livre avec ISBN {isbn} n'existe pas")
 
-            # 2. Ajouter les nouveaux livres
-            for isbn in isbn_list:
-                query = "INSERT INTO selection (selection_id, isbn) VALUES (%s, %s);"
-                cursor.execute(query,(selection_id, isbn_list))
+                # 2. Créer la sélection si nécessaire
+                cursor.execute("SELECT id FROM selection WHERE id = %s;", (selection_id,))
+                if not cursor.fetchone():
+                    cursor.execute(
+                        "INSERT INTO selection (id, selection_date) VALUES (%s, CURDATE());",
+                        (selection_id,)
+                    )
 
-            Dao.connection.commit()
-            return True
+                # 3. Supprimer les anciens livres
+                cursor.execute(
+                    "DELETE FROM selection_books WHERE selection_id = %s AND vote_round IS NULL;",
+                    (selection_id,)
+                )
+
+                # 4. Ajouter les nouveaux livres
+                insert_query = """
+                    INSERT INTO selection_books (selection_id, book_isbn, vote_round, number_of_votes)
+                    VALUES (%s, %s, %s, 0);
+                """
+                params = [(selection_id, isbn, selection_id) for isbn in isbn_list]
+                cursor.executemany(insert_query, params)
+
+                Dao.connection.commit()
+                return True
         except Exception as e:
             Dao.connection.rollback()
-            print(f"Erreur lors de la mise à jour de la sélection: {str(e)}")
+            print(f"Erreur: {str(e)}")
             return False

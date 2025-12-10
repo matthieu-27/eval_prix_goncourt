@@ -11,7 +11,6 @@ from typing import ClassVar, Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from models.book import Book
-    from buisness.goncourt import Goncourt
 
 
 @dataclass

@@ -47,7 +47,9 @@ class Goncourt:
 
     @staticmethod
     def update_selection(selection_id: int, isbn_list: list[int]) -> bool:
-        """ Le président veut mettre a jour une sélection """
+        """
+        Met à jour une sélection (2ème ou 3ème tour).
+        """
         # 1. Vérifier que la sélection est valide (2 ou 3)
         if selection_id not in [2, 3]:
             raise ValueError("Le numéro de sélection doit être 2 ou 3.")
@@ -69,9 +71,4 @@ class Goncourt:
             if isbn not in previous_isbns:
                 raise ValueError(f"Le livre {isbn} ne fait pas partie de la sélection {previous_selection_id}.")
 
-        # 5. Mettre à jour la sélection via le DAO
-        selection_dao = SelectionDao()
-        return selection_dao.update_selection(selection_id, isbn_list)
-
-
-
+        return SelectionDao.update_selection(selection_id, isbn_list)
