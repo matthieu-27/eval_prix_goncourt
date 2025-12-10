@@ -7,7 +7,7 @@ Classe Goncourt
 from dataclasses import dataclass
 
 from daos.book_dao import BookDao
-from daos.personality_dao import PersonalityDao
+from daos.selection_dao import SelectionDao
 
 
 @dataclass
@@ -24,5 +24,16 @@ class Goncourt:
 
     @staticmethod
     def get_selection_jury(selection_id: int):
-        personality_dao: PersonalityDao = PersonalityDao()
-        return personality_dao.get_selection_jury(selection_id)
+        selection_dao: SelectionDao = SelectionDao()
+        return selection_dao.get_selection_jury(selection_id)
+
+    @staticmethod
+    def get_selection(selection_id: int):
+        selection_dao: SelectionDao = SelectionDao()
+        return selection_dao.read(selection_id)
+
+    @staticmethod
+    def get_selection_books(selection_id: int):
+        selection_dao: SelectionDao = SelectionDao()
+        return selection_dao.get_selection_books(selection_id)
+

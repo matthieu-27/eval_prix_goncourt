@@ -1,4 +1,5 @@
 from buisness.goncourt import Goncourt
+from models.selection import Selection
 
 if __name__ == "__main__":
     print("""\
@@ -18,6 +19,15 @@ if __name__ == "__main__":
     #     print(book.__str__() + "\n")
 
     # get jury by selection id
-    jury = goncourt.get_selection_jury(1)
-    for j in jury:
-        print(j.__str__() + "\n")
+    # jury = goncourt.get_selection_jury(1)
+    # for j in jury:
+    #     print(j.__str__() + "\n")
+
+    # get selection books (Use Case 2)
+    # books = goncourt.get_selection_books(1)
+    # for book in books:
+    #     print(book.__str__() + "\n")
+    #
+    # # selection test
+    # selection = goncourt.get_selection(1)
+    # print(selection)
