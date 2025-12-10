@@ -12,7 +12,8 @@ CREATE TABLE Book(
 
 CREATE TABLE Selection(
    id INT AUTO_INCREMENT,
-   selection_number INT,
+   selection_number INT NOT NULL,
+   vote_round INT NOT NULL,
    selection_date DATE NOT NULL,
    PRIMARY KEY(id)
 );

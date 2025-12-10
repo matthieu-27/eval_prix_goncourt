@@ -55,7 +55,7 @@ insert into editor_books (book_isbn, editor_id, editor_price) values (9782073105
 insert into editor_books (book_isbn, editor_id, editor_price) values (9782234097155, 3, 21.00);
 insert into editor_books (book_isbn, editor_id, editor_price) values (9782823623376, 8, 16.00);
 
-insert into selection (selection_number, selection_date) values (1, '2025-09-01')
+INSERT INTO `goncourt_award`.`selection` (`selection_number`, `vote_round`, `selection_date`) VALUES (1, 1, '2025-09-01');
 
 insert into selection_books (book_isbn, selection_id) values (9931257824728, 1);
 insert into selection_books (book_isbn, selection_id) values (9782818061985, 1);
