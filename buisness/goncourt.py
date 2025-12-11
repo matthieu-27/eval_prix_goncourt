@@ -7,16 +7,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import ClassVar, Optional, TYPE_CHECKING
-
-from daos.book_dao import BookDao
-from daos.personality_dao import PersonalityDao
 from daos.selection_dao import SelectionDao
 from daos.vote_dao import VoteDao
 
 if TYPE_CHECKING:
     from models.book import Book
     from models.vote import Vote
-
+    from daos.book_dao import BookDao
+    from daos.personality_dao import PersonalityDao
 
 @dataclass
 class Goncourt:
@@ -26,8 +24,8 @@ class Goncourt:
         return book_dao.read(isbn)
 
     @staticmethod
-    def get_all_books():
-        book_dao: BookDao = BookDao()
+    def get_all_books() -> Optional[list[Book]]:
+        book_dao : BookDao = BookDao()
         return book_dao.read_all()
 
     @staticmethod
@@ -44,6 +42,11 @@ class Goncourt:
     def get_selection_books(selection_id: int):
         selection_dao: SelectionDao = SelectionDao()
         return selection_dao.get_selection_books(selection_id)
+
+    @staticmethod
+    def record_votes(votes: list[Vote]):
+        vote_dao: VoteDao = VoteDao()
+        return vote_dao.record_votes(votes)
 
     @staticmethod
     def update_selection(selection_id: int, isbn_list: list[int]) -> bool:

@@ -9,7 +9,7 @@ from daos.dao import Dao
 
 class VoteDao(Dao[Vote]):
     @staticmethod
-    def record_votes(self, votes: list[Vote]) -> bool:
+    def record_votes(votes: list[Vote]) -> bool:
         """
         Enregistre les votes pour la 3ème sélection.
         Met à jour le champ `number_of_votes` dans `selection_books`.
@@ -24,7 +24,6 @@ class VoteDao(Dao[Vote]):
                         WHERE selection_id = %s AND book_isbn = %s;
                     """
                     cursor.execute(sql, (vote.number_of_votes, vote.selection_id, vote.book_isbn))
-
                 Dao.connection.commit()
                 return True
         except Exception as e:

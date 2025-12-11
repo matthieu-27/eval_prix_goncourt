@@ -136,41 +136,42 @@ INSERT INTO `personality` (`id`, `name`, `is_president`) VALUES
 DROP TABLE IF EXISTS `selection`;
 CREATE TABLE IF NOT EXISTS `selection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `selection_number` int(11) NOT NULL,
+  `vote_round` int(11) NOT NULL,
   `selection_date` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-INSERT INTO `selection` (`id`, `selection_date`) VALUES
-	(1, '2025-09-01');
+INSERT INTO `selection` (`id`, `selection_number`, `vote_round`, `selection_date`) VALUES
+	(1, 1, 1, '2025-09-01');
 
+DROP TABLE IF EXISTS `selection_books`;
 CREATE TABLE IF NOT EXISTS `selection_books` (
   `book_isbn` bigint(20) NOT NULL,
   `selection_id` int(11) NOT NULL,
-  `vote_round` int(11) DEFAULT NULL,  -- NULL pour les sélections sans vote
   `number_of_votes` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`book_isbn`, `selection_id`, `vote_round`),
+  PRIMARY KEY (`book_isbn`,`selection_id`),
   KEY `selection_id` (`selection_id`),
-  CONSTRAINT `fk_selection_books_book` FOREIGN KEY (`book_isbn`) REFERENCES `book` (`isbn`),
-  CONSTRAINT `fk_selection_books_selection` FOREIGN KEY (`selection_id`) REFERENCES `selection` (`id`)
+  CONSTRAINT `1` FOREIGN KEY (`book_isbn`) REFERENCES `book` (`isbn`),
+  CONSTRAINT `2` FOREIGN KEY (`selection_id`) REFERENCES `selection` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-
-INSERT INTO `selection_books` (`book_isbn`, `selection_id`, `vote_round`, `number_of_votes`) VALUES
-	(9782021603439, 1, NULL, 0),
-	(9782073101228, 1, NULL, 0),
-	(9782073105455, 1, NULL, 0),
-	(9782221267660, 1, NULL, 0),
-	(9782226498687, 1, NULL, 0),
-	(9782234097155, 1, NULL, 0),
-	(9782234097278, 1, NULL, 0),
-	(9782260057307, 1, NULL, 0),
-	(9782378562588, 1, NULL, 0),
-	(9782707356741, 1, NULL, 0),
-	(9782710015871, 1, NULL, 0),
-	(9782818061985, 1, NULL, 0),
-	(9782823623376, 1, NULL, 0),
-	(9782848055701, 1, NULL, 0),
-	(9931257824728, 1, NULL, 0);
+INSERT INTO `selection_books` (`book_isbn`, `selection_id`, `number_of_votes`) VALUES
+	(9782021603439, 1, 0),
+	(9782073101228, 1, 0),
+	(9782073105455, 1, 0),
+	(9782221267660, 1, 0),
+	(9782226498687, 1, 0),
+	(9782234097155, 1, 0),
+	(9782234097278, 1, 0),
+	(9782260057307, 1, 0),
+	(9782378562588, 1, 0),
+	(9782707356741, 1, 0),
+	(9782710015871, 1, 0),
+	(9782818061985, 1, 0),
+	(9782823623376, 1, 0),
+	(9782848055701, 1, 0),
+	(9931257824728, 1, 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

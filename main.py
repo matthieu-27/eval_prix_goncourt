@@ -1,8 +1,10 @@
 from buisness.goncourt import Goncourt
 from typing import ClassVar, Optional, TYPE_CHECKING
 
+from daos.vote_dao import VoteDao
+from models.vote import Vote
+
 if TYPE_CHECKING:
-    from models.vote import Vote
     from models.selection import Selection
 
 def display_selection(selection_id: int):
@@ -63,6 +65,42 @@ def update_selection():
         except ValueError:
             print("Erreur: Veuillez entrer des ISBN valides (nombres entiers séparés par des virgules).")
 
+def record_votes():
+    """Enregistre les votes pour les livres de la 2ème sélection."""
+    print("\n--- Enregistrement des votes pour la 2ème sélection ---")
+
+    # Récupérer les livres de la 2ème sélection
+    selection_id = 2
+    books = Goncourt.get_selection_books(selection_id)
+    if not books:
+        print("Aucun livre trouvé pour la 2ème sélection.")
+        return
+
+    # Afficher les livres disponibles
+    print("Livres disponibles pour la 2ème sélection:")
+    for book in books:
+        print(f"- {book.title} (ISBN: {book.isbn})")
+
+    # Demander la liste des ISBN pour les votes
+    print("\nEntrez les ISBN des livres pour lesquels vous voulez enregistrer des votes (séparés par des virgules):")
+    try:
+        isbn_input = input("ISBN: ")
+        isbn_list = [int(isbn.strip()) for isbn in isbn_input.split(",")]
+        vote_list = []
+        # Enregistrer les votes
+        try:
+            for isbn in isbn_list:
+                president_input = int(input(f"Vote pour {isbn}: "))
+                vote = Vote(selection_id=selection_id, book_isbn=isbn, number_of_votes=president_input)
+                vote_list.append(vote)
+            Goncourt.record_votes(vote_list)
+            print("Votes enregistrés avec succès!")
+        except ValueError as e:
+            print(f"Erreur: {str(e)}")
+
+    except ValueError:
+        print("Erreur: Veuillez entrer des ISBN valides (nombres entiers séparés par des virgules).")
+
 def president_menu():
     """Menu pour le président du jury."""
     while True:
@@ -75,6 +113,8 @@ def president_menu():
         president_choice = input("Choix: ")
         if president_choice == "1":
             update_selection()
+        elif president_choice == "2":
+            record_votes()
         elif president_choice == "3":
             break
         else:

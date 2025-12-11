@@ -39,7 +39,7 @@ class SelectionDao(Dao[Selection]):
     def get_selection_books(id_entity: int) -> Optional[list[Book]]:
         """ Récupère les livres d'une sélection.
                 (ou None s'il n'a pu être trouvé)"""
-        book_list: Optional[list[Book]] = []
+        book_list = []
 
         # début de la transaction
         with Dao.connection.cursor() as cursor:
@@ -111,12 +111,18 @@ class SelectionDao(Dao[Selection]):
                     INSERT INTO selection_books (selection_id, book_isbn, vote_round, number_of_votes)
                     VALUES (%s, %s, %s, 0);
                 """
-                params = [(selection_id, isbn, selection_id) for isbn in isbn_list]
+                params = [(selection_id, isbn, 0) for isbn in isbn_list]
                 cursor.executemany(insert_query, params)
 
                 Dao.connection.commit()
-                return True
         except Exception as e:
             Dao.connection.rollback()
             print(f"Erreur: {str(e)}")
             return False
+
+        if selection_id == 3:
+            """ auto random vote """
+            pass
+
+        return True
+
