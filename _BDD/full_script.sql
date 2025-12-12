@@ -136,14 +136,12 @@ INSERT INTO `personality` (`id`, `name`, `is_president`) VALUES
 DROP TABLE IF EXISTS `selection`;
 CREATE TABLE IF NOT EXISTS `selection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `selection_number` int(11) NOT NULL,
-  `vote_round` int(11) NOT NULL,
   `selection_date` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-INSERT INTO `selection` (`id`, `selection_number`, `vote_round`, `selection_date`) VALUES
-	(1, 1, 1, '2025-09-01');
+INSERT INTO `selection` (`id`, `selection_date`) VALUES
+	(1, '2025-09-01');
 
 DROP TABLE IF EXISTS `selection_books`;
 CREATE TABLE IF NOT EXISTS `selection_books` (

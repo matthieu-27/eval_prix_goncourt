@@ -1,24 +1,5 @@
 from buisness.goncourt import Goncourt
-from typing import ClassVar, Optional, TYPE_CHECKING
 
-from daos.vote_dao import VoteDao
-from models.vote import Vote
-
-if TYPE_CHECKING:
-    from models.selection import Selection
-
-def display_selection(selection_id: int):
-    """Affiche les livres d'une sélection (1, 2 ou 3)."""
-    print(f"\n-*- Sélection {selection_id} -*-")
-    books = Goncourt.get_selection_books(selection_id)
-    if not books:
-        print(f"Aucun livre trouvé pour la sélection {selection_id}.")
-        return
-
-    for book in books:
-        print(f"- {book.title} (ISBN: {book.isbn})")
-        print(f"  Auteur: {book.author_name}")
-        print(f"  Résumé: {book.summary[:50]}...\n")
 
 def update_selection():
     """Met à jour une sélection (réservé au président)."""
@@ -65,73 +46,63 @@ def update_selection():
         except ValueError:
             print("Erreur: Veuillez entrer des ISBN valides (nombres entiers séparés par des virgules).")
 
-def record_votes():
-    """Enregistre les votes pour les livres de la 2ème sélection."""
-    print("\n--- Enregistrement des votes pour la 2ème sélection ---")
 
-    # Récupérer les livres de la 2ème sélection
-    selection_id = 2
-    books = Goncourt.get_selection_books(selection_id)
-    if not books:
-        print("Aucun livre trouvé pour la 2ème sélection.")
+def record_votes():
+    """Enregistre des votes aléatoires pour la 3ème sélection."""
+    print("\nEnregistrement des votes aléatoires pour la 3ème sélection")
+
+    # Vérifier que la 3ème sélection existe
+    selection_books = Goncourt.get_selection_books(3)
+    if not selection_books:
+        print("La 3ème sélection n'existe pas encore.")
         return
 
-    # Afficher les livres disponibles
-    print("Livres disponibles pour la 2ème sélection:")
+    # Enregistrer les votes aléatoires
+    try:
+        success = Goncourt.record2_random_votes()
+        if success:
+            print("Votes enregistrés avec succès!")
+
+            # Afficher le gagnant
+            winner = Goncourt.get_winner()
+            if winner:
+                print("\nLe gagnant du Prix Goncourt est:")
+                print(f"- {winner.title} (ISBN: {winner.isbn})")
+                print(f"  Auteur: {winner.author_name}")
+                print(f"  Résumé: {winner.summary[:50]}...\n")
+            else:
+                print("Aucun gagnant trouvé.")
+        else:
+            print("Échec de l'enregistrement des votes.")
+    except ValueError as e:
+        print(f"Erreur: {str(e)}")
+
+
+def display_selection(selection_id: int):
+    """Affiche les livres d'une sélection (1, 2 ou 3)."""
+    print(f"\n-*- Sélection {selection_id} -*-")
+    books = Goncourt.get_selection_books(selection_id)
+    if not books:
+        print(f"Aucun livre trouvé pour la sélection {selection_id}.")
+        return
+
     for book in books:
         print(f"- {book.title} (ISBN: {book.isbn})")
-
-    # Demander la liste des ISBN pour les votes
-    print("\nEntrez les ISBN des livres pour lesquels vous voulez enregistrer des votes (séparés par des virgules):")
-    try:
-        isbn_input = input("ISBN: ")
-        isbn_list = [int(isbn.strip()) for isbn in isbn_input.split(",")]
-        vote_list = []
-        # Enregistrer les votes
-        try:
-            for isbn in isbn_list:
-                president_input = int(input(f"Vote pour {isbn}: "))
-                vote = Vote(selection_id=selection_id, book_isbn=isbn, number_of_votes=president_input)
-                vote_list.append(vote)
-            Goncourt.record_votes(vote_list)
-            print("Votes enregistrés avec succès!")
-        except ValueError as e:
-            print(f"Erreur: {str(e)}")
-
-    except ValueError:
-        print("Erreur: Veuillez entrer des ISBN valides (nombres entiers séparés par des virgules).")
-
-def president_menu():
-    """Menu pour le président du jury."""
-    while True:
-        print("""
-               -*- Menu Président -*-
-               1. Mettre à jour une sélection (2ème ou 3ème)
-               2. Enregistrer les votes (2ème sélection)
-               3. Retour au menu principal
-               """)
-        president_choice = input("Choix: ")
-        if president_choice == "1":
-            update_selection()
-        elif president_choice == "2":
-            record_votes()
-        elif president_choice == "3":
-            break
-        else:
-            print("Choix invalide.")
+        print(f"  Auteur: {book.author_name}")
+        print(f"  Résumé: {book.summary[:50]}...\n")
 
 
 def user_menu():
     """Menu pour les utilisateurs lambda."""
     while True:
         print("""
-              -*- Menu Utilisateur -*-
-              1. Afficher la 1ère sélection
-              2. Afficher la 2ème sélection
-              3. Afficher la 3ème sélection
-              4. Afficher le lauréat
-              5. Retour au menu principal
-              """)
+                -*- Menu Utilisateur -*-
+                1. Afficher la 1ère sélection (15 livres)
+                2. Afficher la 2ème sélection (8 livres)
+                3. Afficher la 3ème sélection (4 livres)
+                4. Afficher le lauréat
+                5. Retour au menu principal
+                """)
         user_choice = input("Choix: ")
         if user_choice == "1":
             display_selection(1)
@@ -139,17 +110,53 @@ def user_menu():
             display_selection(2)
         elif user_choice == "3":
             display_selection(3)
+        elif user_choice == "4":
+            winner = Goncourt.get_winner()
+            if winner:
+                print("\n-*- Lauréat du Prix Goncourt -*-")
+                print(f"- {winner.title} (ISBN: {winner.isbn})")
+                print(f"  Auteur: {winner.author_name}")
+                print(f"  Résumé: {winner.summary[:50]}...")
+            else:
+                print("Aucun lauréat n'a encore été désigné.")
         elif user_choice == "5":
             break
         else:
             print("Choix invalide.")
 
 
+def president_menu():
+    """Menu pour le président du jury."""
+    while True:
+        print(
+            """
+            -*- Menu Président -*-
+            1. Mettre à jour la 2ème sélection (8 livres)
+            2. Mettre à jour la 3ème sélection (4 livres)
+            3. Enregistrer les votes aléatoires (3ème sélection)
+            4. Retour au menu principal
+            """
+        )
+        president_choice = input("Choix: ")
+        if president_choice == "1":
+            update_selection()
+        elif president_choice == "2":
+            update_selection()
+        elif president_choice == "3":
+            record_votes()
+        elif president_choice == "4":
+            break
+        else:
+            print("Choix invalide.")
+
+
 if __name__ == "__main__":
-    print("""\
+    print(
+        """\
     --------------------------
     Bienvenue au Prix Goncourt
-    --------------------------""")
+    --------------------------"""
+    )
 
     goncourt: Goncourt = Goncourt()
 
@@ -177,12 +184,14 @@ if __name__ == "__main__":
     # print(selection)
 
     while True:
-        print("""
-              -*- Menu Principal -*-
-              1: Menu Utilisateur
-              2: Menu Présidentiel
-              3: Quitter
-              """)
+        print(
+            """
+            -*- Menu Principal -*-
+            1: Menu Utilisateur
+            2: Menu Présidentiel
+            3: Quitter
+            """
+        )
 
         choice = input("Choix: ")
         if choice == "1":
@@ -194,5 +203,3 @@ if __name__ == "__main__":
             break
         else:
             print("Choix invalide.")
-
-

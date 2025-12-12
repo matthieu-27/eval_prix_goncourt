@@ -6,15 +6,14 @@ Classe Goncourt
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import ClassVar, Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 from daos.selection_dao import SelectionDao
-from daos.vote_dao import VoteDao
 
 if TYPE_CHECKING:
     from models.book import Book
-    from models.vote import Vote
     from daos.book_dao import BookDao
     from daos.personality_dao import PersonalityDao
+
 
 @dataclass
 class Goncourt:
@@ -25,7 +24,7 @@ class Goncourt:
 
     @staticmethod
     def get_all_books() -> Optional[list[Book]]:
-        book_dao : BookDao = BookDao()
+        book_dao: BookDao = BookDao()
         return book_dao.read_all()
 
     @staticmethod
@@ -37,16 +36,6 @@ class Goncourt:
     def get_selection(selection_id: int):
         selection_dao: SelectionDao = SelectionDao()
         return selection_dao.read(selection_id)
-
-    @staticmethod
-    def get_selection_books(selection_id: int):
-        selection_dao: SelectionDao = SelectionDao()
-        return selection_dao.get_selection_books(selection_id)
-
-    @staticmethod
-    def record_votes(votes: list[Vote]):
-        vote_dao: VoteDao = VoteDao()
-        return vote_dao.record_votes(votes)
 
     @staticmethod
     def update_selection(selection_id: int, isbn_list: list[int]) -> bool:
@@ -75,3 +64,26 @@ class Goncourt:
                 raise ValueError(f"Le livre {isbn} ne fait pas partie de la sélection {previous_selection_id}.")
 
         return SelectionDao.update_selection(selection_id, isbn_list)
+
+    @staticmethod
+    def get_selection_books(selection_id: int) -> list[Book]:
+        """
+        Récupère les livres d'une sélection.
+        """
+        return SelectionDao.get_selection_books(selection_id)
+
+    @staticmethod
+    def record_random_votes() -> bool:
+        """
+        Enregistre des votes aléatoires pour la 3ème sélection.
+        """
+        return SelectionDao.record_random_votes()
+
+    @staticmethod
+    def get_winner() -> Optional[Book]:
+        """
+        Retourne le livre gagnant.
+        Returns:
+            Optional[Book]: Objet Book du livre gagnant ou None
+        """
+        return SelectionDao.get_winner()
