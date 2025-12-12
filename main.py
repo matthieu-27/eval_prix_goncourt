@@ -59,7 +59,7 @@ def record_votes():
 
     # Enregistrer les votes aléatoires
     try:
-        success = Goncourt.record2_random_votes()
+        success = Goncourt.record_random_votes()
         if success:
             print("Votes enregistrés avec succès!")
 
